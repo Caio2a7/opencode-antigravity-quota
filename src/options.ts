@@ -1,0 +1,31 @@
+import { clampInterval } from "./poller"
+
+export type DisplayMode = "used" | "remaining"
+
+export interface QuotaOptions {
+  refreshIntervalMs: number
+  showModels: boolean
+  displayMode: DisplayMode
+  credentialsPath: string | undefined
+}
+
+function bool(value: unknown, fallback: boolean): boolean {
+  return typeof value === "boolean" ? value : fallback
+}
+
+function displayMode(value: unknown): DisplayMode {
+  return value === "remaining" || value === "used" ? value : "used"
+}
+
+/** Validates untrusted plugin options; invalid values fall back to defaults. */
+export function parseOptions(raw: Readonly<Record<string, unknown>> | undefined): QuotaOptions {
+  const input = raw ?? {}
+  const seconds = typeof input.refreshInterval === "number" ? input.refreshInterval * 1000 : undefined
+  const path = typeof input.credentialsPath === "string" ? input.credentialsPath.trim() : ""
+  return {
+    refreshIntervalMs: clampInterval(seconds),
+    showModels: bool(input.showModels, true),
+    displayMode: displayMode(input.displayMode),
+    credentialsPath: path === "" ? undefined : path,
+  }
+}

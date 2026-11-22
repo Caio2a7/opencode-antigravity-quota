@@ -1,0 +1,50 @@
+# Contributing
+
+Thanks for helping out! Bug reports and pull requests are welcome.
+
+## Setup
+
+```sh
+bun install
+bun test
+bun run typecheck
+bun run build
+```
+
+| Script              | Purpose                                                                                                  |
+| ------------------- | -------------------------------------------------------------------------------------------------------- |
+| `bun test`          | Run the test suite (`bun:test`).                                                                         |
+| `bun run typecheck` | Strict TypeScript check.                                                                                 |
+| `bun run build`     | Bundle `src/tui.tsx` to `dist/tui.js`, rewriting solid/opentui imports to the host's runtime module ids. |
+
+CI runs typecheck, tests and build on Ubuntu, macOS and Windows.
+
+## Guidelines
+
+- Strict TypeScript; no `any`, no stubs.
+- Keep files under 300 lines and functions under 40 lines.
+- No new runtime dependencies without a strong reason.
+- Keep the plugin **read-only** with respect to Antigravity and Gemini credentials: never write back or log tokens, keep OAuth refresh strictly in memory and never hardcode OAuth client secrets.
+- Do not spawn subprocesses.
+- The Cloud Code quota endpoints are unofficial; parse defensively and degrade gracefully when fields disappear.
+- Add or update tests in `tests/` for any behaviour change (`bun:test`).
+- Use [Conventional Commits](https://www.conventionalcommits.org/) in English and update `CHANGELOG.md`.
+
+## Local testing in OpenCode
+
+Run `bun install && bun run build`, add the checkout's absolute path to the `plugins` array of
+`~/.config/opencode/cli.json` (see the README) and restart OpenCode.
+
+## Release process
+
+Publishing uses npm trusted publishing (repo `Caio2a7/opencode-antigravity-quota`, workflow `release.yml`, environment `Opencode-AntigravityQuota-Plugin`) — no token needed.
+
+Then:
+
+1. Bump `version` in `package.json`.
+2. Move the `CHANGELOG.md` entries under the new version heading with the release date.
+3. Commit to `main`, then tag and push: `git tag vX.Y.Z && git push origin vX.Y.Z`.
+4. GitHub Actions publishes to npm with provenance and creates the GitHub Release.
+
+The tag must point to a commit on `main` (otherwise the release workflow fails) and must equal the `package.json`
+version.
