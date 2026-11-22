@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "opencode-antigravity-quota",
+      "name": "@caio2a7/opencode-antigravity-quota",
       "devDependencies": {
         "@opencode/plugin": "2.0.22",
         "@opencode/theme": "2.0.22",

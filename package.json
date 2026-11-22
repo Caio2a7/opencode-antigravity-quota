@@ -1,5 +1,5 @@
 {
-  "name": "opencode-antigravity-quota",
+  "name": "@caio2a7/opencode-antigravity-quota",
   "version": "0.1.0",
   "description": "Antigravity & Gemini usage, quota and rate limits in the OpenCode v2 sidebar.",
   "type": "module",

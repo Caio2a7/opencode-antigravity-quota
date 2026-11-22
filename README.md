@@ -40,7 +40,7 @@ Add the package to the `plugins` array of `~/.config/opencode/cli.json` and rest
 
 ```json
 {
-  "plugins": ["opencode-antigravity-quota"]
+  "plugins": ["@caio2a7/opencode-antigravity-quota"]
 }
 ```
 
@@ -50,7 +50,7 @@ With options:
 {
   "plugins": [
     {
-      "package": "opencode-antigravity-quota",
+      "package": "@caio2a7/opencode-antigravity-quota",
       "options": { "refreshInterval": 90, "displayMode": "remaining" }
     }
   ]
